@@ -12,6 +12,13 @@ Display entire steps of Tower of Hanoi step by step.
 
 Using __pure C__ for implementation.
 
+## Code
+
+```main.c```: control program
+
+```graphic.c```: draw the tower
+
+
 
 
 
