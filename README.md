@@ -1,4 +1,4 @@
-# Displaying Tower of Hanoi Gradually by C 
+# Displaying Tower of Hanoi by C 
 
 *Inspired by*
 
