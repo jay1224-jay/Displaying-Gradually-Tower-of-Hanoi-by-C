@@ -3,7 +3,6 @@
 *Inspired by*
 
 - School teacher
-- templeOS
 - Tsoding 
 
 ## Content
