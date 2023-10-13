@@ -1,7 +1,7 @@
 
 CC=gcc
-DEPS=common.h
-OBJS=main.o graphic.o
+DEPS=tgl.h
+OBJS=main.o
 
 
 %.o: %.c $(DEPS)

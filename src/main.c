@@ -1,23 +1,14 @@
 #include <stdio.h>
 
-#include "common.h"
+#include "tgl.h"
 
 int main(int argc, char* argv[]) {
 
-    printf("hello world\n");
+    tgl_initBoard();
 
-    char m[HEIGHT][WIDTH];
+    tgl_displayBoard();
 
-    for ( int i = 0 ; i < HEIGHT ; ++i ) {
-        for ( int j = 0 ; j < WIDTH ; ++j ) {
-            m[i][j] = (65 + i * j);
-        }
-    }
-    draw(m, WIDTH, HEIGHT);
-
-    printf("draw() function worked successfully!\n");
-
-
+    free(_board);
 
     return 0;
 }
