@@ -1,15 +1,8 @@
+CC = gcc
+LIBS = -lraylib -lm
 
-CC=gcc
-DEPS=tgl.h
-OBJS=main.o
-
-
-%.o: %.c $(DEPS)
-	$(CC) $< -c
+a.out: disk_stack.c
+	$(CC) disk_stack.c $(LIBS)
+	@echo "To run the program, execute the file \"a.out\"(or a.exe if Windows)"
 
 
-main: $(OBJS) $(DEPS)
-	$(CC) -o $@ $^
-
-clean:
-	rm *.o
