@@ -1,5 +1,5 @@
 CC = gcc
-LIBS = -lraylib -lm
+LIBS = -lraylib -lm -lpthread -ldl
 
 a.out: disk_stack.c
 	$(CC) disk_stack.c $(LIBS)
