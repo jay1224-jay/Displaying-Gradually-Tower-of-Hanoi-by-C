@@ -6,28 +6,52 @@
 #include <stdio.h>
 
 #include "display.h"
+#include "common.h"
 
+#define WIDTH  600
+#define HEIGHT 500
+
+int current_state;
 
 int main() {
 
     InitWindow(WIDTH, HEIGHT, "Display Tower of Hanoi");
     SetTargetFPS(60);
 
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
+
     int count = 0;
-    char message[10] ;
+    char message[10];
+
+    current_state = stateHomeScreen;
 
     while (!WindowShouldClose()) {
 
         BeginDrawing();
-            ClearBackground(BLACK);
+            ClearBackground(WHITE);
 
-            if ( GuiButton( (Rectangle){200, 200, 50, 20}, "Click me" ) ) {
-                ++count;
-                sprintf(message, "%d times", count);
-                printf("click\n");
+
+            switch ( current_state ) {
+
+                case statePause: 
+                    ;
+                    break;
+                case statePlay:
+                    ;
+                    break;
+                case stateHomeScreen:
+                    gameHomeScreen();
+                    break;
+                case stateInit:
+                    gameInit();
+                    // current_state = statePause;
+                    break;
+                default:
+                    printf("Unknown state found.\nState: %d\n", current_state);
+            
             }
-            DrawText(message, 200, 260, 20, WHITE) ;
-            DrawText("Hello from raylib", 100, 100, 30, BLUE);
+
+
 
         EndDrawing();
     }
