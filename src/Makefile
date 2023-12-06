@@ -1,8 +1,16 @@
 CC = gcc
 LIBS = -lraylib -lm -lpthread -ldl
+OBJS = display.o 
 
-a.out: disk_stack.c
-	$(CC) disk_stack.c $(LIBS)
-	@echo "To run the program, execute the file \"a.out\"(or a.exe if Windows)"
+a.out: $(OBJS) 
+	$(CC) $(OBJS) $(LIBS)
+
+display.o: display.c display.h
+	$(CC) display.c -c
+
+clean:
+	rm *.o
+
+
 
 
