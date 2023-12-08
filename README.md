@@ -13,9 +13,21 @@ Using __pure C__ for implementation.
 
 ## Code
 
-```main.c```: control program
+```main.c```: Control the entire program
 
-```graphic.c```: draw the tower
+```homeScreen.c```: Draw home screen
+
+```tower.c```: Generate steps for accomplishing Tower of Hanoi
+
+```display.c```: Display Tower of Hanoi
+
+## Header files
+
+```common.h```: Declare shared functions and variables
+
+```raygui.h```: Raylib official GUI header files ( containing implementation of button, label, etc.)
+
+
 
 
 
