@@ -1,9 +1,12 @@
 CC = gcc
 LIBS = -lraylib -lm -lpthread -ldl
-OBJS = display.o homeScreen.o init.o
+OBJS = main.o tower.o display.o homeScreen.o
 
 a.out: $(OBJS) 
 	$(CC) $(OBJS) $(LIBS)
+
+main.o: main.c common.h
+	$(CC) main.c -c
 
 display.o: display.c common.h
 	$(CC) display.c -c
@@ -11,8 +14,9 @@ display.o: display.c common.h
 homeScreen.o: homeScreen.c common.h
 	$(CC) homeScreen.c -c
 
-init.o: init.c common.h
-	$(CC) init.c -c
+tower.o: tower.c common.h
+	$(CC) tower.c -c
+
 
 clean:
 	rm *.o
