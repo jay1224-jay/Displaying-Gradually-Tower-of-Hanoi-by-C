@@ -1464,7 +1464,7 @@ static void DrawRectangleGradientV(int posX, int posY, int width, int height, Co
 //----------------------------------------------------------------------------------
 static void GuiLoadStyleFromMemory(const unsigned char *fileData, int dataSize);    // Load style from memory (binary only)
 
-static int GetTextWidth(const char *text);                      // Gui get text width using gui font and style
+int GetTextWidth(const char *text);                      // Gui get text width using gui font and style
 static Rectangle GetTextBounds(int control, Rectangle bounds);  // Get text bounds considering control bounds
 static const char *GetTextIcon(const char *text, int *iconId);  // Get text icon if provided and move text cursor
 
@@ -4545,7 +4545,7 @@ static void GuiLoadStyleFromMemory(const unsigned char *fileData, int dataSize)
 }
 
 // Gui get text width considering icon
-static int GetTextWidth(const char *text)
+int GetTextWidth(const char *text)
 {
     #if !defined(ICON_TEXT_PADDING)
         #define ICON_TEXT_PADDING   4

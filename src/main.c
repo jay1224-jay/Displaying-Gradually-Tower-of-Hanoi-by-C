@@ -9,11 +9,16 @@
 
 
 int current_state;
+Font myfont;
 
 int main() {
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Display Tower of Hanoi");
     SetTargetFPS(60);
+
+
+    // myfont = LoadFontEx("resources/Consolas.ttf", 128, 0, 250);
+    myfont = LoadFont("resources/Consolas.ttf");
 
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
 
@@ -25,7 +30,7 @@ int main() {
     while (!WindowShouldClose()) {
 
         BeginDrawing();
-            ClearBackground(WHITE);
+            ClearBackground(LIGHTGRAY);
 
 
             switch ( current_state ) {
@@ -34,14 +39,10 @@ int main() {
                     ;
                     break;
                 case statePlay:
-                    ;
+                    displayTower();
                     break;
                 case stateHomeScreen:
                     gameHomeScreen();
-                    break;
-                case stateInit:
-                    gameInit();
-                    // current_state = statePause;
                     break;
                 default:
                     printf("Unknown state found.\nState: %d\n", current_state);
@@ -57,4 +58,10 @@ int main() {
     CloseWindow();
 
     return 0;
+}
+
+
+void DrawTextB(const char *text, int posX, int posY, int fontSize, Color color)
+{
+    DrawTextEx(myfont, text, (Vector2){ posX, posY }, fontSize, 1, color);
 }
