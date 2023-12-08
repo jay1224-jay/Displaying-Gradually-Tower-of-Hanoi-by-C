@@ -5,7 +5,7 @@ OBJS = display.o homeScreen.o init.o
 a.out: $(OBJS) 
 	$(CC) $(OBJS) $(LIBS)
 
-display.o: display.c display.h common.h
+display.o: display.c common.h
 	$(CC) display.c -c
 
 homeScreen.o: homeScreen.c common.h

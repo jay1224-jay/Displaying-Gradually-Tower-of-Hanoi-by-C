@@ -5,17 +5,14 @@
 
 #include <stdio.h>
 
-#include "display.h"
 #include "common.h"
 
-#define WIDTH  600
-#define HEIGHT 500
 
 int current_state;
 
 int main() {
 
-    InitWindow(WIDTH, HEIGHT, "Display Tower of Hanoi");
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Display Tower of Hanoi");
     SetTargetFPS(60);
 
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);

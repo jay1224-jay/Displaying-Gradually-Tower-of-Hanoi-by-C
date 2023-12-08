@@ -3,6 +3,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#define WINDOW_WIDTH  600
+#define WINDOW_HEIGHT 500
+
 enum {  statePause = 0, 
         statePlay,
         stateHomeScreen,
