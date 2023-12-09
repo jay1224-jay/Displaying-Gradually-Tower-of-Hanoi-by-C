@@ -27,6 +27,7 @@ int main() {
 
     current_state = stateHomeScreen;
 
+    initTower();
     while (!WindowShouldClose()) {
 
         BeginDrawing();
