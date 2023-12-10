@@ -21,6 +21,7 @@ int main() {
     myfont = LoadFont("resources/Consolas.ttf");
 
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
+    GuiSetFont(myfont);
 
     int count = 0;
     char message[10];

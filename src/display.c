@@ -23,7 +23,7 @@ typedef struct {
 
 } rect;
 
-#define numberOfDisks 10
+#define numberOfDisks 5
 
 rect disks[numberOfDisks];
 const int diskMaxWidth = 200;
@@ -55,9 +55,9 @@ void initTower(void) {
     }
     // sticks
     stickColor = BROWN;
-    stickWidth = disks[0].width - 10;
+    stickWidth = 10;
     stickHeight = 50 + diskMaxHeight;
-    stickBeginX = disks[0].x + stickWidth/2;
+    stickBeginX = disks[0].x + (disks[0].width - stickWidth)/2; // disks[0].x + stickWidth/2;
     stickBeginY = disks[0].y;
     stickDistance = \
         (WINDOW_WIDTH - (stickBeginX*2)) / 2;
