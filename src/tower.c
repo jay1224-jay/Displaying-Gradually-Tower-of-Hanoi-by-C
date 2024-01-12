@@ -1,6 +1,9 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
+
+
 int f(int n) {
 	if ( n == 1 ) return 1;
 	return 2 * f(n-1) + 1;
@@ -13,34 +16,27 @@ int f(int n) {
 
 */
 
-typedef struct {
-    int number;
-    char from;
-    char to;
-} step;
 
-int n = 3, count;
-step * move;
+step move[1000];
 
 void generateProgress(int n, char s, char m, char d) {
 	if ( n == 1 ) {
-        move[0][0] = n;
-        move[0][1] = s;
-        move[0][2] = d;
+        move[count-ind-1].number = n;
+        move[count-ind-1].from = s;
+        move[count-ind-1].to = d;
+        ind++;
 		return;
 	}
-    --count;
-	progress(n-1, s, d, m); // move
-    move[count].number = n;
-    move[count].from   = s;
-    move[count].to     = d;
-	printf("move %d from %c to %c\n", n, s, d);
-    --count;
-	progress(n-1, m, s, d); // move
-    move[count].number = n;
-    move[count].from   = s;
-    move[count].to     = d;
-	printf("move %d from %c to %c\n", n, s, d);
+    
+	generateProgress(n-1, s, d, m); // move
+    move[count-ind-1].number = n;
+    move[count-ind-1].from   = s;
+    move[count-ind-1].to     = d;
+    ind++;
+	generateProgress(n-1, m, s, d); // move
+    move[count-ind-1].number = n;
+    move[count-ind-1].from   = s;
+    move[count-ind-1].to     = d;
 	return;
 }
 
@@ -49,10 +45,17 @@ int main() {
 
     count = f(n);
 
-    move = (step)malloc(sizeof(step) * count);
+    printf("%d\n", count);
 
-    generateProgress();
+
+    generateProgress(n, 'a', 'b', 'c');
+
+
+    for ( int i = 0 ; i < f(n) ; ++i ) {
+        printf("%d %c %c\n", move[i].number, move[i].from, move[i].to);
+    }
 	
     return 0;
 	
 }
+

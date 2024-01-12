@@ -7,6 +7,9 @@
 
 #include "common.h"
 
+#define towerA 'a'
+#define towerB 'b'
+#define towerC 'c'
 
 int current_state;
 Font myfont;
@@ -23,12 +26,14 @@ int main() {
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
     GuiSetFont(myfont);
 
-    int count = 0;
+    int count = 0, towerN = 3;
     char message[10];
+    step move[1000];
 
     current_state = stateHomeScreen;
 
     initTower();
+    generateProgress(towerN, towerA, towerB, towerC);
     while (!WindowShouldClose()) {
 
         BeginDrawing();

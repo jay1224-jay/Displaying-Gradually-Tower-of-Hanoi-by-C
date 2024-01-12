@@ -24,6 +24,7 @@ typedef struct {
 } rect;
 
 #define numberOfDisks 5
+#define isStill(Disk) ( (Disk.x == Disk.targetX) && (Disk.y == Disk.targetY) )
 
 rect disks[numberOfDisks];
 const int diskMaxWidth = 200;
@@ -32,6 +33,7 @@ const int diskMaxWidth = 200;
 const int diskMaxHeight = 200;
 const int diskBeginX = 100, diskBeginY = 200; // (width - diskMaxWidth)/2;
 const double defaultXSpeed = 2, defaultYSpeed = 2;
+const int diskCeilY = 100;
 
 
 // 3 sticks
@@ -63,6 +65,8 @@ void initTower(void) {
         (WINDOW_WIDTH - (stickBeginX*2)) / 2;
 }
 
+int currentMoving = 0, goMoving = 0;
+
 void displayTower(void) {
 
 
@@ -78,9 +82,16 @@ void displayTower(void) {
     }
 
     if ( GuiButton((Rectangle){100, 500, 70, 40}, "Move") ) {
-        disks[0].targetX = 500;
+
+        disks[0].targetY = diskCeilY;
+
     }
 
+    if ( goMoving ) {
+
+        ;
+
+    }
 
     // Draw 3 sticks in center
 
