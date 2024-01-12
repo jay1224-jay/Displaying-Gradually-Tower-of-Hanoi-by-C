@@ -6,6 +6,8 @@
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 600
 
+#define numberOfDisks 3
+
 enum {  statePause = 0, 
         statePlay,
         stateHomeScreen,
@@ -21,16 +23,17 @@ typedef struct {
 extern int current_state;
 extern Font myfont;    // Global variable, initialize at beginning.
 
-
 void gameHomeScreen(void);
 void displayTower(void);
 void initTower(void);
 
 void DrawTextB(const char* msg, int x, int y, int fontSize, Color color);
 
+
 void generateProgress(int, char, char, char);
 extern step move[1000];
 extern int towerN;
+// extern int stepN;
 
 
 #endif

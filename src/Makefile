@@ -1,6 +1,6 @@
 CC = gcc
 LIBS = -lraylib -lm -lpthread -ldl
-OBJS = main.o tower.o display.o homeScreen.o
+OBJS = main.o display.o homeScreen.o
 
 a.out: $(OBJS) 
 	$(CC) $(OBJS) $(LIBS)

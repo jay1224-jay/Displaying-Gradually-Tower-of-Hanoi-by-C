@@ -4,10 +4,6 @@
 #include <stdlib.h>
 
 
-int f(int n) {
-	if ( n == 1 ) return 1;
-	return 2 * f(n-1) + 1;
-}
 /*
 
  s  m  d
@@ -16,30 +12,38 @@ int f(int n) {
 
 */
 
+#define numberOfDisks 5
+typedef struct {
+    int number;
+    char from;
+    char to;
+} step;
 
 step move[1000];
+int stepN = f(numberOfDisks), ind = 0;
 
 void generateProgress(int n, char s, char m, char d) {
 	if ( n == 1 ) {
-        move[count-ind-1].number = n;
-        move[count-ind-1].from = s;
-        move[count-ind-1].to = d;
+        move[stepN-ind-1].number = n;
+        move[stepN-ind-1].from = s;
+        move[stepN-ind-1].to = d;
         ind++;
 		return;
 	}
     
 	generateProgress(n-1, s, d, m); // move
-    move[count-ind-1].number = n;
-    move[count-ind-1].from   = s;
-    move[count-ind-1].to     = d;
+    move[stepN-ind-1].number = n;
+    move[stepN-ind-1].from   = s;
+    move[stepN-ind-1].to     = d;
     ind++;
 	generateProgress(n-1, m, s, d); // move
-    move[count-ind-1].number = n;
-    move[count-ind-1].from   = s;
-    move[count-ind-1].to     = d;
+    move[stepN-ind-1].number = n;
+    move[stepN-ind-1].from   = s;
+    move[stepN-ind-1].to     = d;
 	return;
 }
 
+/*
 int main() {
 	
 
@@ -58,4 +62,5 @@ int main() {
     return 0;
 	
 }
+*/
 

@@ -3,6 +3,7 @@
 #include "raygui.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "common.h"
 
@@ -23,10 +24,15 @@ typedef struct {
 
 } rect;
 
-#define numberOfDisks 5
-#define isStill(Disk) ( (Disk.x == Disk.targetX) && (Disk.y == Disk.targetY) )
+#define towerA 'a'
+#define towerB 'b'
+#define towerC 'c'
+
+#define isStill(Disk) ( (abs(Disk.x - Disk.targetX) < 2) && (abs(Disk.y - Disk.targetY) < 2 ) )
+#define numberOfDisks 3
 
 rect disks[numberOfDisks];
+
 const int diskMaxWidth = 200;
 
 // double because we have to calculate the disk height as double
@@ -38,7 +44,40 @@ const int diskCeilY = 100;
 
 // 3 sticks
 Color stickColor;
-int stickWidth, stickHeight, stickBeginX, stickDistance, stickBeginY;
+int stickWidth, stickHeight, stickBeginX, stickDistance, stickBeginY, firstDiskY;
+
+
+int currentMovingDisk = 0, currentStep = 0, goMoving = 0, stepN, ind = 0,
+    canGoNext = 0, waitForTop = 0;
+
+step move[1000];
+
+int f(int n) {
+	if ( n == 1 ) return 1;
+	return 2 * f(n-1) + 1;
+}
+
+
+void generateProgress(int n, char s, char m, char d) {
+	if ( n == 1 ) {
+        move[ind].number = n;
+        move[ind].from = s;
+        move[ind].to = d;
+        ind++;
+		return;
+	}
+    
+	generateProgress(n-1, s, d, m); // move
+    move[ind].number = n;
+    move[ind].from   = s;
+    move[ind].to     = d;
+    ind++;
+	generateProgress(n-1, m, s, d); // move
+    move[ind].number = n;
+    move[ind].from   = s;
+    move[ind].to     = d;
+	return;
+}
 
 void initTower(void) {
     // Initialization
@@ -55,6 +94,7 @@ void initTower(void) {
         disks[i].xSpeed = defaultXSpeed;
         disks[i].ySpeed = defaultYSpeed;
     }
+
     // sticks
     stickColor = BROWN;
     stickWidth = 10;
@@ -63,9 +103,13 @@ void initTower(void) {
     stickBeginY = disks[0].y;
     stickDistance = \
         (WINDOW_WIDTH - (stickBeginX*2)) / 2;
+    firstDiskY = disks[0].y;
+
+    stepN = f(numberOfDisks);
+    printf("stepn = %d\n", stepN);
+
 }
 
-int currentMoving = 0, goMoving = 0;
 
 void displayTower(void) {
 
@@ -76,29 +120,78 @@ void displayTower(void) {
                                 WINDOW_HEIGHT - backButtonHeight - 30,
                                 backButtonWidth, 
                                 backButtonHeight}, "Back") ) {
-
         current_state = stateHomeScreen;
+        goMoving = 0;
 
     }
 
     if ( GuiButton((Rectangle){100, 500, 70, 40}, "Move") ) {
 
-        disks[0].targetY = diskCeilY;
+        // disks[0].targetY = diskCeilY;
+        goMoving = 1;
 
     }
 
     if ( goMoving ) {
+        goMoving=0;
 
-        ;
+        int stickI;
+
+        disks[move[currentStep].number-1].targetY = diskCeilY;
+
+        if ( waitForTop == 1 )
+            waitForTop = 1;
+        else {
+            printf("move x\n");
+            switch (move[currentStep].to) {
+            case towerA:
+                stickI = 0;
+                break;
+            case towerB:
+                stickI = 1;
+                break;
+            case towerC:
+                stickI = 2;
+                break;
+            }
+
+            // disks[move[currentStep].number-1].targetX = stickBeginX + (stickDistance*stickI);
+        
+            disks[move[currentStep].number-1].targetX = stickBeginX + (stickDistance*stickI);
+            canGoNext = 1;
+
+            if ( currentStep < stepN-1 ) {
+                ++currentStep;
+                canGoNext = 0;
+            }
+        }
+
+        
+        
+       
+ 
+        /*
+        for ( int i = 0 ; i < stepN ; ++i ) {
+            printf("%d %c %c\n", move[i].number, move[i].from, move[i].to);
+        }
+        goMoving=0;
+        */
 
     }
+
+
+    if ( isStill( disks[move[currentStep].number-1] ) ) {
+        // printf("got still\n");
+        waitForTop = 0;
+    }
+
 
     // Draw 3 sticks in center
 
 
     for ( int i = 0 ; i < 3 ; ++i ) {
 
-        Vector2 vPos  = { stickBeginX + (stickDistance*i) , disks[0].y - 50 };
+        Vector2 vPos  = { stickBeginX + (stickDistance*i) , firstDiskY - 50 };
         Vector2 vSize = {stickWidth, stickHeight};
 
         DrawRectangleV(vPos, vSize, stickColor);

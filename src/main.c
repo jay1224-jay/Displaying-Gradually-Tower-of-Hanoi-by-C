@@ -32,8 +32,12 @@ int main() {
 
     current_state = stateHomeScreen;
 
+    
     initTower();
-    generateProgress(towerN, towerA, towerB, towerC);
+    generateProgress(numberOfDisks, towerA, towerB, towerC);
+
+    
+
     while (!WindowShouldClose()) {
 
         BeginDrawing();
