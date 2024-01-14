@@ -11,7 +11,7 @@ https://github.com/jay1224-jay/Displaying-Tower-of-Hanoi-Gradually-by-C/assets/5
 
 ## Content
 
-Display entire steps of Tower of Hanoi step by step.
+**Auto** display entire steps of Tower of Hanoi step by step.
 
 Using __pure C__ for implementation.
 
