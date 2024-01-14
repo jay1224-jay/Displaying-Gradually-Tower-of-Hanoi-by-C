@@ -29,7 +29,7 @@ typedef struct {
 #define towerC 'c'
 
 #define isStill(Disk) ( (abs(Disk.x - Disk.targetX) < 2) && (abs(Disk.y - Disk.targetY) < 2 ) )
-#define numberOfDisks 3
+#define numberOfDisks 4
 
 rect disks[numberOfDisks];
 
@@ -48,7 +48,7 @@ int stickWidth, stickHeight, stickBeginX, stickDistance, stickBeginY, firstDiskY
 
 
 int currentMovingDisk = 0, currentStep = 0, goMoving = 0, stepN, ind = 0,
-    canGoNext = 0, waitForTop = 0;
+    canGoNext = 1, waitForTop = 0;
 
 step move[1000];
 
@@ -88,7 +88,7 @@ void initTower(void) {
         disks[i].y = diskBeginY + (diskMaxHeight  / numberOfDisks) * i;
         disks[i].width = diskMaxWidth * ( i+1 ) / numberOfDisks;
         disks[i].height = (double)diskMaxHeight / numberOfDisks;
-        disks[i].color = (i%2) ? BLUE : SKYBLUE;
+        disks[i].color = BLUE; // (i%2) ? BLUE : SKYBLUE;
         disks[i].targetX = disks[i].x;
         disks[i].targetY = disks[i].y;
         disks[i].xSpeed = defaultXSpeed;
@@ -106,7 +106,6 @@ void initTower(void) {
     firstDiskY = disks[0].y;
 
     stepN = f(numberOfDisks);
-    printf("stepn = %d\n", stepN);
 
 }
 
@@ -127,22 +126,21 @@ void displayTower(void) {
 
     if ( GuiButton((Rectangle){100, 500, 70, 40}, "Move") ) {
 
-        // disks[0].targetY = diskCeilY;
         goMoving = 1;
 
     }
 
     if ( goMoving ) {
         goMoving=0;
+        canGoNext = 0;
 
         int stickI;
 
-        disks[move[currentStep].number-1].targetY = diskCeilY;
+        // disks[move[currentStep].number-1].targetY = diskCeilY;
 
         if ( waitForTop == 1 )
             waitForTop = 1;
         else {
-            printf("move x\n");
             switch (move[currentStep].to) {
             case towerA:
                 stickI = 0;
@@ -157,8 +155,7 @@ void displayTower(void) {
 
             // disks[move[currentStep].number-1].targetX = stickBeginX + (stickDistance*stickI);
         
-            disks[move[currentStep].number-1].targetX = stickBeginX + (stickDistance*stickI);
-            canGoNext = 1;
+            disks[move[currentStep].number-1].targetX = stickBeginX + (stickDistance*stickI) - (disks[move[currentStep].number-1].width)/2 + (stickWidth)/2;
 
             if ( currentStep < stepN-1 ) {
                 ++currentStep;
@@ -166,25 +163,14 @@ void displayTower(void) {
             }
         }
 
-        
-        
-       
- 
-        /*
-        for ( int i = 0 ; i < stepN ; ++i ) {
-            printf("%d %c %c\n", move[i].number, move[i].from, move[i].to);
-        }
-        goMoving=0;
-        */
 
     }
 
-
-    if ( isStill( disks[move[currentStep].number-1] ) ) {
-        // printf("got still\n");
-        waitForTop = 0;
+    // move continuously
+    if ( canGoNext == 0 && isStill(disks[move[currentStep-1].number-1]) && currentStep < stepN) {
+        goMoving = 1;
+        canGoNext = 1;
     }
-
 
     // Draw 3 sticks in center
 

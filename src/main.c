@@ -26,7 +26,7 @@ int main() {
     GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
     GuiSetFont(myfont);
 
-    int count = 0, towerN = 3;
+    int count = 0, towerN = 4;
     char message[10];
     step move[1000];
 

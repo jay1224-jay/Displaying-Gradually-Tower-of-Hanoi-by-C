@@ -6,7 +6,7 @@
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 600
 
-#define numberOfDisks 3
+#define numberOfDisks 4
 
 enum {  statePause = 0, 
         statePlay,
