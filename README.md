@@ -2,7 +2,7 @@
 
 demo:
 
-![https://github.com/jay1224-jay/Displaying-Tower-of-Hanoi-Gradually-by-C/assets/53821314/af7462e4-a493-406d-a2a6-4845282c2fc0]()
+https://github.com/jay1224-jay/Displaying-Tower-of-Hanoi-Gradually-by-C/assets/53821314/af7462e4-a493-406d-a2a6-4845282c2fc0
 
 *Inspired by*
 
